@@ -2,13 +2,14 @@ import 'dart:developer';
 
 import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/signup_screen.dart';
+import 'package:online_learning/admin/adminhome_screen.dart';
 import 'package:online_learning/home_screen.dart';
 import 'package:online_learning/widgets/button.dart';
 import 'package:online_learning/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({super.key}); 
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -80,13 +81,24 @@ class _LoginScreenState extends State<LoginScreen> {
         MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
 
-  _login() async {
-    final user =
-        await _auth.loginUserWithEmailAndPassword(_email.text, _password.text);
+_login() async {
+  final user = await _auth.loginUserWithEmailAndPassword(_email.text, _password.text);
 
-    if (user != null) {
-      log("User Logged In");
+  if (user != null) {
+    log("User Logged In");
+
+    // Check if the user's email is admin@gmail.com
+    if (_email.text == "admin@gmail.com") {
+      // Navigate to the admin home screen
+      goToAdminHome(context);
+    } else {
+      // Navigate to the regular home screen
       goToHome(context);
     }
   }
+}
+goToAdminHome(BuildContext context) => Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => AdminhomeomeScreen()),
+);
 }
