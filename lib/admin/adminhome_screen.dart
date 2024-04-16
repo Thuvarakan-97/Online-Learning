@@ -4,7 +4,7 @@ import 'package:online_learning/auth/login_screen.dart';
 import 'package:online_learning/widgets/button.dart';
 
 class AdminhomeomeScreen extends StatelessWidget {
-  const AdminhomeomeScreen({Key? key});
+  const AdminhomeomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
