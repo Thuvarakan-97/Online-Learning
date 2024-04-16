@@ -1,14 +1,14 @@
 import 'dart:developer';
-
+import 'package:flutter/material.dart';
 import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/signup_screen.dart';
+import 'package:online_learning/admin/adminhome_screen.dart';
 import 'package:online_learning/home_screen.dart';
 import 'package:online_learning/widgets/button.dart';
 import 'package:online_learning/widgets/textfield.dart';
-import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -30,41 +30,51 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25),
-        child: Column(
-          children: [
-            const Spacer(),
-            const Text("Login",
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500)),
-            const SizedBox(height: 50),
-            CustomTextField(
-              hint: "Enter Email",
-              label: "Email",
-              controller: _email,
-            ),
-            const SizedBox(height: 20),
-            CustomTextField(
-              hint: "Enter Password",
-              label: "Password",
-              controller: _password,
-            ),
-            const SizedBox(height: 30),
-            CustomButton(
-              label: "Login",
-              onPressed: _login,
-            ),
-            const SizedBox(height: 5),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              const Text("Already have an account? "),
-              InkWell(
-                onTap: () => goToSignup(context),
-                child:
-                    const Text("Signup", style: TextStyle(color: Colors.red)),
-              )
-            ]),
-            const Spacer()
-          ],
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/PMSbackground.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: Column(
+            children: [
+              const Spacer(),
+              const Text("Login",
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500)),
+              const SizedBox(height: 50),
+              CustomTextField(
+                hint: "Enter Email",
+                label: "Email",
+                controller: _email,
+              ),
+              const SizedBox(height: 20),
+              CustomTextField(
+                hint: "Enter Password",
+                label: "Password",
+                controller: _password,
+              ),
+              const SizedBox(height: 30),
+              CustomButton(
+                label: "Login",
+                onPressed: _login,
+                textColor: Colors.white, // Text color
+               buttonColor:Color.fromARGB(255, 11, 126, 164), // Button color
+              ),
+              const SizedBox(height: 5),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                const Text("Don't have an account? "),
+                InkWell(
+                  onTap: () => goToSignup(context),
+                  child:
+                      const Text("Signup", style: TextStyle(color: Colors.red)),
+                )
+              ]),
+              const Spacer()
+            ],
+          ),
         ),
       ),
     );
@@ -80,13 +90,26 @@ class _LoginScreenState extends State<LoginScreen> {
         MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
 
+  goToAdminHome(BuildContext context) => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const AdminhomeomeScreen()),
+      );
+
   _login() async {
     final user =
         await _auth.loginUserWithEmailAndPassword(_email.text, _password.text);
 
     if (user != null) {
       log("User Logged In");
-      goToHome(context);
+
+      // Check if the user's email is admin@gmail.com
+      if (_email.text == "admin@gmail.com") {
+        // Navigate to the admin home screen
+        goToAdminHome(context);
+      } else {
+        // Navigate to the regular home screen
+        goToHome(context);
+      }
     }
   }
 }
