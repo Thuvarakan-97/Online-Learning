@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:online_learning/admin/add_assignment_screen.dart';
 import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/login_screen.dart';
 import 'package:online_learning/widgets/button.dart';
-
+import 'add_user_screen.dart';
 class AdminhomeomeScreen extends StatelessWidget {
   const AdminhomeomeScreen({super.key});
 
@@ -29,17 +30,33 @@ class AdminhomeomeScreen extends StatelessWidget {
                   fontSize: 24,
                 ),
               ),
-            ),
-            ListTile(
+            ),ListTile(
+            title: Text('Home'),
+            onTap: () {
+              Navigator.pop(context); // Close the drawer
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AdminhomeomeScreen()), // Navigate to AddUserScreen
+              );
+            },
+          ),
+     ListTile(
               title: Text('Add User'),
               onTap: () {
-                // Add functionality for adding user
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddUserScreen()),
+                );
               },
             ),
             ListTile(
-              title: Text('View Users'),
+               title: Text('Add AssignmentScreen'),
               onTap: () {
-                // Add functionality for viewing users
+                Navigator.pop(context); // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddAssignmentScreen()),
+                );
               },
             ),
             ListTile(
