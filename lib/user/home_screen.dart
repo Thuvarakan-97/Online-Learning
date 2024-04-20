@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/login_screen.dart';
 import 'package:online_learning/widgets/button.dart';
-import 'package:online_learning/admin/addassignment.dart';
+import 'package:flutter/material.dart';
+import 'package:online_learning/user/assignment.dart';
 
-class AdminhomeomeScreen extends StatelessWidget {
-  const AdminhomeomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class AdminhomeomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Admin Home'),
+        title: const Text('Home'),
       ),
       drawer: Drawer(
         child: ListView(
@@ -21,7 +21,7 @@ class AdminhomeomeScreen extends StatelessWidget {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Color.fromARGB(206, 45, 175, 219),
+                color: Color.fromARGB(255, 22, 139, 234),
               ),
               child: Text(
                 'Menu',
@@ -32,35 +32,25 @@ class AdminhomeomeScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text('Add Video'),
+              title: Text('video'),
               onTap: () {
                 // Add functionality for adding user
               },
             ),
             ListTile(
-              title: Text('Edit game'),
+              title: Text('games'),
               onTap: () {
                 // Add functionality for viewing users
               },
             ),
             ListTile(
-              title: Text('Edit assignment'),
+              title: Text('assignment'),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          AssignmentScreen()), // Navigate to AddAssignment screen
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Sign Out'),
-              onTap: () async {
-                await auth.signout();
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                          AssignmentScreen()), // Navigate to AssignmentScreen
                 );
               },
             ),
@@ -73,7 +63,7 @@ class AdminhomeomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Welcome Admin",
+              "Welcome User",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 20),

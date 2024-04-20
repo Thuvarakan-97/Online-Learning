@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/login_screen.dart';
-import 'package:online_learning/home_screen.dart';
+import 'package:online_learning/user/home_screen.dart';
 import 'package:online_learning/widgets/button.dart';
 import 'package:online_learning/widgets/textfield.dart';
 import 'package:flutter/material.dart';

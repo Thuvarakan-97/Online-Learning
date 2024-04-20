@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/signup_screen.dart';
 import 'package:online_learning/admin/adminhome_screen.dart';
-import 'package:online_learning/home_screen.dart';
+import 'package:online_learning/user/home_screen.dart';
 import 'package:online_learning/widgets/button.dart';
 import 'package:online_learning/widgets/textfield.dart';
 
@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 label: "Login",
                 onPressed: _login,
                 textColor: Colors.white, // Text color
-               buttonColor:Color.fromARGB(255, 11, 126, 164), // Button color
+                buttonColor: Color.fromARGB(255, 11, 126, 164), // Button color
               ),
               const SizedBox(height: 5),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
