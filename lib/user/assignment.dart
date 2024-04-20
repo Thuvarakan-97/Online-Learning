@@ -1,27 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
-import 'package:cloud_firestore/cloud_firestore.dart'; // Import Cloud Firestore
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AssignmentScreen extends StatelessWidget {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+class assessmentScreen extends StatefulWidget {
+  @override
+  _assessmentScreenState createState() => _assessmentScreenState();
+}
 
-  // Function to write data to Firestore
-  void _submitAssignment(String title, String description) async {
-    // Get the current user
-    User? user = _auth.currentUser;
-    if (user != null) {
-      try {
-        // Add a new document with a generated ID ..await _firestore.collection('assignments').doc(user.uid).set({
-        await _firestore.collection('assignments').add({
-          'title': title,
-          'description': description,
-          'userId': user.uid,
-        });
-        print('Assignment submitted successfully');
-      } catch (e) {
-        print('Error submitting assignment: $e');
-      }
+class _assessmentScreenState extends State<assessmentScreen> {
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<Map<String, dynamic>> _questions = [];
+  int _correctAnswersCount = 0;
+  late List<int?> _selectedOptions;
+
+  _assessmentScreenState() {
+    _selectedOptions = [];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchQuestions();
+  }
+
+  void _fetchQuestions() async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot =
+        await _firestore.collection('questions').get();
+    setState(() {
+      _questions = querySnapshot.docs.map((doc) => doc.data()).toList();
+      _selectedOptions = List.generate(_questions.length, (_) => null);
+    });
+  }
+
+  void _submitAnswer(int questionIndex, int optionIndex, String correctOption,
+      BuildContext context) {
+    if (_selectedOptions[questionIndex] != null)
+      return; // Answer already selected
+    setState(() {
+      _selectedOptions[questionIndex] = optionIndex;
+    });
+    if (optionIndex ==
+        _questions[questionIndex]['options'].indexOf(correctOption)) {
+      setState(() {
+        _correctAnswersCount++;
+      });
+      // Show correct feedback
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Correct!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } else {
+      // Show incorrect feedback
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Incorrect!'),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -29,29 +65,79 @@ class AssignmentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Assignment'),
+        title: Text('assessment'),
       ),
-      body: Center(
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Welcome to Assignments!',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              'Questions',
+              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 16.0),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _questions.length,
+                itemBuilder: (context, questionIndex) {
+                  Map<String, dynamic> question = _questions[questionIndex];
+                  List<dynamic> options = question['options'];
+                  String correctOption = question['correctOption'];
+                  return Card(
+                    elevation: 4.0,
+                    margin: EdgeInsets.symmetric(vertical: 8.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            question['question'],
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 16.0),
+                          ...List.generate(
+                            options.length,
+                            (optionIndex) {
+                              String option = options[optionIndex];
+                              bool isCorrect = option == correctOption;
+                              return ElevatedButton(
+                                onPressed: () {
+                                  _submitAnswer(questionIndex, optionIndex,
+                                      correctOption, context);
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      _selectedOptions[questionIndex] != null &&
+                                              optionIndex ==
+                                                  _selectedOptions[
+                                                      questionIndex]
+                                          ? (isCorrect
+                                              ? MaterialStateProperty.all(
+                                                  Colors.green)
+                                              : MaterialStateProperty.all(
+                                                  Colors.red))
+                                          : null,
+                                ),
+                                child: Text(option),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 16.0),
             Text(
-              'Here you can view and submit your assignments.',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Example of submitting an assignment
-                _submitAssignment('Assignment Title', 'Assignment Description');
-              },
-              child: Text('Submit Assignment'),
+              'Correct Answers: $_correctAnswersCount',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
           ],
         ),

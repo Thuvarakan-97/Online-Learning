@@ -3,6 +3,7 @@ import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/login_screen.dart';
 import 'package:online_learning/widgets/button.dart';
 import 'package:online_learning/admin/addassignment.dart';
+import 'package:online_learning/admin/add_video.dart';
 
 class AdminhomeomeScreen extends StatelessWidget {
   const AdminhomeomeScreen({super.key});
@@ -32,9 +33,14 @@ class AdminhomeomeScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text('Add Video'),
+              title: Text('Video'),
               onTap: () {
-                // Add functionality for adding user
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          VideoUploader()), // Navigate to AssignmentScreen
+                );
               },
             ),
             ListTile(
@@ -50,7 +56,7 @@ class AdminhomeomeScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          AssignmentScreen()), // Navigate to AddAssignment screen
+                          AddQuestionScreen()), // Navigate to AddAssignment screen
                 );
               },
             ),

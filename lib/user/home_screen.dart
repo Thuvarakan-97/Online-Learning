@@ -2,7 +2,8 @@ import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/login_screen.dart';
 import 'package:online_learning/widgets/button.dart';
 import 'package:flutter/material.dart';
-import 'package:online_learning/user/assignment.dart';
+
+import 'package:online_learning/user/learning_material.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -32,27 +33,19 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text('video'),
-              onTap: () {
-                // Add functionality for adding user
-              },
-            ),
-            ListTile(
-              title: Text('games'),
-              onTap: () {
-                // Add functionality for viewing users
-              },
-            ),
-            ListTile(
-              title: Text('assignment'),
+              title: Text('learning material'),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          AssignmentScreen()), // Navigate to AssignmentScreen
+                          LearningMaterialPage()), // Navigate to AssignmentScreen
                 );
               },
+            ),
+            ListTile(
+              title: Text('report'),
+              onTap: () {},
             ),
           ],
         ),
