@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/login_screen.dart';
 import 'package:online_learning/widgets/button.dart';
-import 'package:online_learning/admin/addassignment.dart';
-import 'package:online_learning/admin/add_video.dart';
+
+import 'package:online_learning/admin/learning_material.dart';
 
 class AdminhomeomeScreen extends StatelessWidget {
   const AdminhomeomeScreen({super.key});
@@ -33,32 +33,23 @@ class AdminhomeomeScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text('Video'),
+              title: Text('User Details'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('Learning Material'),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          VideoUploader()), // Navigate to AssignmentScreen
+                          LearningMaterialPage()), // Navigate to AddAssignment screen
                 );
               },
             ),
             ListTile(
-              title: Text('Edit game'),
-              onTap: () {
-                // Add functionality for viewing users
-              },
-            ),
-            ListTile(
-              title: Text('Edit assignment'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          AddQuestionScreen()), // Navigate to AddAssignment screen
-                );
-              },
+              title: Text('View Report'),
+              onTap: () {},
             ),
             ListTile(
               title: Text('Sign Out'),
