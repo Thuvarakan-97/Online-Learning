@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_learning/user/Assessment/Assessment_m.dart';
 import 'package:online_learning/user/video.dart';
+import 'package:online_learning/user/game/game1.dart';
 
 class LearningMaterialPage extends StatelessWidget {
   @override
@@ -36,7 +37,7 @@ class LearningMaterialPage extends StatelessWidget {
                 // Navigate to Game Hub page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => VideoListScreen()),
+                  MaterialPageRoute(builder: (context) => game1()),
                 );
               },
               child: Text('Game Hub'),

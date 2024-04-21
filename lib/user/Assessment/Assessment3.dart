@@ -73,9 +73,38 @@ class _assessmentScreen3State extends State<assessmentScreen3> {
     // Get the current user's ID
     String userId = FirebaseAuth.instance.currentUser!.uid;
 
-    // Add assessment marks to Firestore using the user ID
-    await _firestore.collection('Report').doc(userId).set({
-      'Assessment3': assessmentMarks,
+    // Perform the Firestore transaction
+    await _updateAssessmentMarks(userId, assessmentMarks);
+  }
+
+  Future<void> _updateAssessmentMarks(
+      String userId, int assessmentMarks) async {
+    // Get the Firestore instance
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+    // Get the document reference
+    final docRef = _firestore.collection('Report').doc(userId);
+
+    // Start a Firestore transaction
+    await _firestore.runTransaction((transaction) async {
+      final doc = await transaction.get(docRef);
+
+      if (!doc.exists) {
+        // If the document doesn't exist, create it with Assessment1 only
+        transaction.set(docRef, {'Assessment3': assessmentMarks});
+      } else {
+        // If the document exists, update Assessment1 only
+        final currentData = doc.data()!;
+        final currentAssessment2 = currentData['Assessment2'] ?? 0;
+        final currentAssessment3 = currentData['Assessment1'] ?? 0;
+
+        // Update the document with Assessment1 and leave Assessment2 and Assessment3 unchanged
+        transaction.update(docRef, {
+          'Assessment3': assessmentMarks,
+          'Assessment2': currentAssessment2,
+          'Assessment1': currentAssessment3,
+        });
+      }
     });
   }
 
