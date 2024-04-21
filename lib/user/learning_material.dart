@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:online_learning/user/assignment.dart';
+import 'package:online_learning/user/Assessment/Assessment_m.dart';
 import 'package:online_learning/user/video.dart';
-
-void main() {
-  runApp(MaterialApp(
-    home: LearningMaterialPage(),
-  ));
-}
 
 class LearningMaterialPage extends StatelessWidget {
   @override
@@ -60,7 +54,7 @@ class LearningMaterialPage extends StatelessWidget {
                 // Navigate to Assessment page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => assessmentScreen()),
+                  MaterialPageRoute(builder: (context) => Assessment()),
                 );
               },
               child: Text('Assessment'),

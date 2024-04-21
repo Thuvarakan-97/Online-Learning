@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:online_learning/admin/ass_add/Assessment1.dart';
-import 'package:online_learning/admin/ass_add/Assessment2.dart';
-import 'package:online_learning/admin/ass_add/Assessment3.dart';
+import 'package:online_learning/admin/ass_delete/Assessment1_delete.dart';
+import 'package:online_learning/admin/ass_delete/Assessment2_delete.dart';
+import 'package:online_learning/admin/ass_delete/Assessment3_delete.dart';
 
-class Assessment extends StatelessWidget {
+class Assessment_de extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Assessments'),
+        title: Text('Assessment'),
       ),
       body: Center(
         child: Column(
@@ -19,7 +19,7 @@ class Assessment extends StatelessWidget {
                 // Navigate to Training Video page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddQuestionScreen1()),
+                  MaterialPageRoute(builder: (context) => assessment1_delete()),
                 );
               },
               child: Text('Assessment1'),
@@ -37,7 +37,7 @@ class Assessment extends StatelessWidget {
                 // Navigate to Game Hub page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddQuestionScreen2()),
+                  MaterialPageRoute(builder: (context) => assessment2_delete()),
                 );
               },
               child: Text('Assessment2'),
@@ -52,13 +52,13 @@ class Assessment extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Navigate to Assessment page
+                // Navigate to Assessment_de page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddQuestionScreen3()),
+                  MaterialPageRoute(builder: (context) => assessment3_delete()),
                 );
               },
-              child: Text('Assessment3'),
+              child: Text('Assessment_de3'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color.fromARGB(255, 2, 250, 212),
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),

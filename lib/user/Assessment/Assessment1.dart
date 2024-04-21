@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class assessmentScreen extends StatefulWidget {
+class assessmentScreen1 extends StatefulWidget {
   @override
-  _assessmentScreenState createState() => _assessmentScreenState();
+  _assessmentScreen1State createState() => _assessmentScreen1State();
 }
 
-class _assessmentScreenState extends State<assessmentScreen> {
+class _assessmentScreen1State extends State<assessmentScreen1> {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<Map<String, dynamic>> _questions = [];
   int _correctAnswersCount = 0;
   late List<int?> _selectedOptions;
 
-  _assessmentScreenState() {
+  _assessmentScreen1State() {
     _selectedOptions = [];
   }
 
@@ -32,12 +33,18 @@ class _assessmentScreenState extends State<assessmentScreen> {
   }
 
   void _submitAnswer(int questionIndex, int optionIndex, String correctOption,
-      BuildContext context) {
-    if (_selectedOptions[questionIndex] != null)
+      BuildContext context) async {
+    if (_selectedOptions[questionIndex] != null) {
       return; // Answer already selected
+    }
+
+    int assessmentMarks =
+        0; // Initialize assessmentMarks outside the conditional statement
+
     setState(() {
       _selectedOptions[questionIndex] = optionIndex;
     });
+
     if (optionIndex ==
         _questions[questionIndex]['options'].indexOf(correctOption)) {
       setState(() {
@@ -59,6 +66,46 @@ class _assessmentScreenState extends State<assessmentScreen> {
         ),
       );
     }
+
+    assessmentMarks = _correctAnswersCount *
+        2; // Calculate assessmentMarks based on correct answers count
+
+    // Get the current user's ID
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+
+    // Perform the Firestore transaction
+    await _updateAssessmentMarks(userId, assessmentMarks);
+  }
+
+  Future<void> _updateAssessmentMarks(
+      String userId, int assessmentMarks) async {
+    // Get the Firestore instance
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+    // Get the document reference
+    final docRef = _firestore.collection('Report').doc(userId);
+
+    // Start a Firestore transaction
+    await _firestore.runTransaction((transaction) async {
+      final doc = await transaction.get(docRef);
+
+      if (!doc.exists) {
+        // If the document doesn't exist, create it with Assessment1 only
+        transaction.set(docRef, {'Assessment1': assessmentMarks});
+      } else {
+        // If the document exists, update Assessment1 only
+        final currentData = doc.data()!;
+        final currentAssessment2 = currentData['Assessment2'] ?? 0;
+        final currentAssessment3 = currentData['Assessment3'] ?? 0;
+
+        // Update the document with Assessment1 and leave Assessment2 and Assessment3 unchanged
+        transaction.update(docRef, {
+          'Assessment1': assessmentMarks,
+          'Assessment2': currentAssessment2,
+          'Assessment3': currentAssessment3,
+        });
+      }
+    });
   }
 
   @override

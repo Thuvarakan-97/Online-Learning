@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:online_learning/admin/ass_add/Assessment1.dart';
-import 'package:online_learning/admin/ass_add/Assessment2.dart';
-import 'package:online_learning/admin/ass_add/Assessment3.dart';
+import 'package:online_learning/user/Assessment/Assessment1.dart';
+import 'package:online_learning/user/Assessment/Assessment2.dart';
+import 'package:online_learning/user/Assessment/Assessment3.dart';
 
 class Assessment extends StatelessWidget {
   @override
@@ -19,7 +19,7 @@ class Assessment extends StatelessWidget {
                 // Navigate to Training Video page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddQuestionScreen1()),
+                  MaterialPageRoute(builder: (context) => assessmentScreen1()),
                 );
               },
               child: Text('Assessment1'),
@@ -37,7 +37,7 @@ class Assessment extends StatelessWidget {
                 // Navigate to Game Hub page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddQuestionScreen2()),
+                  MaterialPageRoute(builder: (context) => AssessmentScreen2()),
                 );
               },
               child: Text('Assessment2'),
@@ -55,7 +55,7 @@ class Assessment extends StatelessWidget {
                 // Navigate to Assessment page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddQuestionScreen3()),
+                  MaterialPageRoute(builder: (context) => assessmentScreen3()),
                 );
               },
               child: Text('Assessment3'),
