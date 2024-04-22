@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:online_learning/admin/user_screen.dart';
 import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/login_screen.dart';
 import 'package:online_learning/widgets/button.dart';
-
 import 'package:online_learning/admin/learning_material.dart';
 
 class AdminhomeomeScreen extends StatelessWidget {
@@ -32,10 +33,16 @@ class AdminhomeomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            ListTile(
-              title: Text('User Details'),
-              onTap: () {},
-            ),
+          ListTile(
+  title: Text('User Details'),
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => UsersScreen()),
+    );
+  },
+),
+
             ListTile(
               title: Text('Learning Material'),
               onTap: () {
