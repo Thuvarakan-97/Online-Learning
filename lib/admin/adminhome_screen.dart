@@ -1,10 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'package:online_learning/admin/user_screen.dart';
 import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/login_screen.dart';
 import 'package:online_learning/widgets/button.dart';
 import 'package:online_learning/admin/learning_material.dart';
+
+import 'package:online_learning/admin/add_assignment_screen.dart';
+import 'package:online_learning/auth/auth_service.dart';
+import 'package:online_learning/auth/login_screen.dart';
+import 'package:online_learning/widgets/button.dart';
+import 'add_user_screen.dart';
 
 class AdminhomeomeScreen extends StatelessWidget {
   const AdminhomeomeScreen({super.key});
@@ -32,25 +39,8 @@ class AdminhomeomeScreen extends StatelessWidget {
                   fontSize: 24,
                 ),
               ),
-            ),
-          ListTile(
-  title: Text('User Details'),
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => UsersScreen()),
-    );
-  },
-),
 
-            ListTile(
-              title: Text('Learning Material'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          LearningMaterialPage()), // Navigate to AddAssignment screen
+
                 );
               },
             ),
