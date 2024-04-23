@@ -40,6 +40,13 @@ dependencies:
   firebase_ui_auth: ^1.13.1
   cloud_firestore: ^4.17.0
 
+
+  firebase_database: ^10.5.2
+  video_player: ^2.8.6
+  firebase_storage: ^11.7.2
+  image_picker: ^1.1.0
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -60,7 +67,7 @@ flutter:
   
   assets:
     - assets/PMSbackground.png
-
+    - assets/logo.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
