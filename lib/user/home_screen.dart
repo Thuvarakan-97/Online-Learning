@@ -1,4 +1,5 @@
 
+
 import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/login_screen.dart';
 import 'package:online_learning/widgets/button.dart';
@@ -17,22 +18,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home'),
 
-import 'package:flutter/material.dart';
-import 'package:online_learning/auth/auth_service.dart';
-import 'package:online_learning/auth/login_screen.dart';
-import 'package:online_learning/user/assignment_screen.dart';
-import 'package:online_learning/widgets/button.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key});
-
-  @override
-  Widget build(BuildContext context) {
-    final auth = AuthService();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Home"),
 
       ),
       drawer: Drawer(
@@ -42,7 +28,9 @@ class HomeScreen extends StatelessWidget {
             DrawerHeader(
               decoration: BoxDecoration(
 
+
                 color: Color.fromARGB(255, 22, 139, 234),
+
 
               ),
               child: Text(
@@ -54,6 +42,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             ListTile(
+
 
               title: Text('learning material'),
               onTap: () {
@@ -68,25 +57,6 @@ class HomeScreen extends StatelessWidget {
             ListTile(
               title: Text('report'),
               onTap: () {},
-
-              title: Text('Item 1'),
-              onTap: () async {
-                   await auth.signout();
-                goToLogin(context);
-              },
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Handle item 2 press
-              },
-            ),
-            ListTile(
-              title: Text('Sign Out'),
-              onTap: () async {
-                await auth.signout();
-                goToLogin(context);
-              },
 
             ),
           ],
@@ -104,6 +74,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 20),
             CustomButton(
 
+
               label: "Sign Out",
               onPressed: () async {
                 await auth.signout();
@@ -118,6 +89,7 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
 
               label: "Do Something",
               onPressed: () {
