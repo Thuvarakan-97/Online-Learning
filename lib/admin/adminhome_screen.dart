@@ -1,9 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'package:online_learning/admin/user_screen.dart';
+import 'package:online_learning/auth/auth_service.dart';
+import 'package:online_learning/auth/login_screen.dart';
+import 'package:online_learning/widgets/button.dart';
+import 'package:online_learning/admin/learning_material.dart';
+
 import 'package:online_learning/admin/add_assignment_screen.dart';
 import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/login_screen.dart';
 import 'package:online_learning/widgets/button.dart';
 import 'add_user_screen.dart';
+
 class AdminhomeomeScreen extends StatelessWidget {
   const AdminhomeomeScreen({super.key});
 
@@ -30,40 +39,14 @@ class AdminhomeomeScreen extends StatelessWidget {
                   fontSize: 24,
                 ),
               ),
-            ),ListTile(
-            title: Text('Home'),
-            onTap: () {
-              Navigator.pop(context); // Close the drawer
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AdminhomeomeScreen()), // Navigate to AddUserScreen
-              );
-            },
-          ),
-     ListTile(
-              title: Text('Add User'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AddUserScreen()),
+
+
                 );
               },
             ),
             ListTile(
-               title: Text('Add AssignmentScreen'),
-              onTap: () {
-                Navigator.pop(context); // Close the drawer
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AddAssignmentScreen()),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Edit User'),
-              onTap: () {
-                // Add functionality for editing user
-              },
+              title: Text('View Report'),
+              onTap: () {},
             ),
             ListTile(
               title: Text('Sign Out'),
@@ -84,7 +67,7 @@ class AdminhomeomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Welcome User",
+              "Welcome Admin",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 20),

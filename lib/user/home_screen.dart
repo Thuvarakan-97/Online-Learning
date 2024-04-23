@@ -1,3 +1,22 @@
+
+import 'package:online_learning/auth/auth_service.dart';
+import 'package:online_learning/auth/login_screen.dart';
+import 'package:online_learning/widgets/button.dart';
+import 'package:flutter/material.dart';
+
+import 'package:online_learning/user/learning_material.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final AuthService auth = AuthService();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home'),
+
 import 'package:flutter/material.dart';
 import 'package:online_learning/auth/auth_service.dart';
 import 'package:online_learning/auth/login_screen.dart';
@@ -14,6 +33,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Home"),
+
       ),
       drawer: Drawer(
         child: ListView(
@@ -21,7 +41,9 @@ class HomeScreen extends StatelessWidget {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+
+                color: Color.fromARGB(255, 22, 139, 234),
+
               ),
               child: Text(
                 'Menu',
@@ -32,6 +54,21 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             ListTile(
+
+              title: Text('learning material'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          LearningMaterialPage()), // Navigate to AssignmentScreen
+                );
+              },
+            ),
+            ListTile(
+              title: Text('report'),
+              onTap: () {},
+
               title: Text('Item 1'),
               onTap: () async {
                    await auth.signout();
@@ -50,6 +87,7 @@ class HomeScreen extends StatelessWidget {
                 await auth.signout();
                 goToLogin(context);
               },
+
             ),
           ],
         ),
@@ -65,6 +103,22 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             CustomButton(
+
+              label: "Sign Out",
+              onPressed: () async {
+                await auth.signout();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
               label: "Do Something",
               onPressed: () {
                 // Add your button functionality here
@@ -88,4 +142,5 @@ class HomeScreen extends StatelessWidget {
       MaterialPageRoute(builder: (context) => AssignmentScreen()),
     );
   }
+
 }
